@@ -10,18 +10,18 @@ namespace KKrReporter
 {
     class Program
     {
-        
+
         static void Main(string[] args)
         {
             //there are 3 obligatory arguments and 3 optional
-            
-            ConfigurationFile configurationfile = null;
-                        
-            configurationfile = new ConfigurationFile(args[0]);
 
-            if (configurationfile.Exists()==false){
+
+            ConfigurationFile configurationfile = new ConfigurationFile(args[0]);
+
+            if (configurationfile.Exists() == false)
+            {
                 LogFile businessLog = new LogFile("CheckWebbusiness.log");
-                businessLog.WriteLine("configurationfile file: " +args[0] + 
+                businessLog.WriteLine("configurationfile file: " + args[0] +
                                       " notexist, KKrReporter is not able process request without proper configuration file" + "\n" +
                                       "Issue Code: E002 plesase go to: " + "https://github.com/kkrysztofczyk/KKrReporter/wiki/Errors");
                 businessLog.Close();
@@ -42,7 +42,7 @@ namespace KKrReporter
             if (configurationfile.isCorrect() == false)
             {
                 LogFile businessLog = new LogFile("CheckWebbusiness.log");
-                businessLog.WriteLine("Configration file " + args[0] + " is not valid, "+
+                businessLog.WriteLine("Configration file " + args[0] + " is not valid, " +
                                       "KKrReporter is not able process request without proper configuration file" + "\n" +
                                       "Issue Code: E004 plesase go to: " + "https://github.com/kkrysztofczyk/KKrReporter/wiki/Errors" +
                                       "error description:" + "\n" +
@@ -50,43 +50,40 @@ namespace KKrReporter
                 businessLog.Close();
                 return;
             }
-                 
+
+            //we have at lest correct configuration file, we can start using configuration data
+            LogFile BussinesLogFile = new LogFile(configurationfile.BussinesLogFile);
+            LogFile ExceptionLogFile = new LogFile(configurationfile.ExceptionLogFile);
+
+            //now we can check rest of arguments (configuration file is already checked and it is valid)
+            CheckArguments checkarguments = new CheckArguments(args);
 
 
+            //we know that there are proper input arguments, now we can process report
 
-            string fileOut = "";
+
+            string fileOut;
+
             string connectionString = "";
             string sqlQuery = "";
 
-            Console.Write(DateTime.Now + "; "); // to najfajniej jakby także trafiło do loga, 
-                                                //to czy na konsoli takze aplikacja wypisuje komunikaty mogło by być w pliku konfiguracyjnym
 
-            ConfigurationFile configurationfile = null;
 
             //wczytywanie parametrów konfiguracyjnych - do refaktoringu ja bym widział to zamknięte w obiekcie configurationfile
-            try
-            {
-                configurationfile = new ConfigurationFile(args[0]);
 
-                if (configurationfile.AddDate == "YES")
-                {
-                    fileOut = Path.Combine(configurationfile.OutDirectory, Path.GetFileNameWithoutExtension(args[1]) + " " + DateTime.Now.ToString("yyyy-MM-dd"));
-                }
-                else
-                {
-                    fileOut = Path.Combine(configurationfile.OutDirectory, Path.GetFileNameWithoutExtension(args[1]));
-                }
 
-                connectionString = configurationfile.ConnectionString;
-                sqlQuery = File.ReadAllText(args[1]);
-            }
-            catch (Exception e)
+            if (configurationfile.AddDate == "YES")
             {
-                Console.WriteLine(DateTime.Now + "; " + args[0] + "; " + args[1]);
-                Console.WriteLine("Problem z parametrami wejściowymi");
-                Console.WriteLine(e.GetBaseException());
-                Console.WriteLine(e.StackTrace);
+                fileOut = Path.Combine(configurationfile.OutDirectory, Path.GetFileNameWithoutExtension(args[1]) + " " + DateTime.Now.ToString("yyyy-MM-dd"));
             }
+            else
+            {
+                fileOut = Path.Combine(configurationfile.OutDirectory, Path.GetFileNameWithoutExtension(args[1]));
+            }
+
+            connectionString = configurationfile.ConnectionString;
+            sqlQuery = File.ReadAllText(args[1]);
+
 
             SqlConnection connection = new SqlConnection();
             connection = new SqlConnection();

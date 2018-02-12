@@ -9,9 +9,10 @@ namespace KKrReporter
 {
     class ConfigurationFile
     {
-        public string OutDirectory;
+        
         public string ConnectionString;
         public int TimeOut;
+        public string OutDirectory;
         public string AddDate;
         public string BussinesLogFile;
         public string ExceptionLogFile;
