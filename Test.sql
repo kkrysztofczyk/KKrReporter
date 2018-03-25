@@ -1,0 +1,1 @@
+select 'Hello world' as TestMessage

@@ -1,0 +1,42 @@
+﻿1. Run program without parameters E001 - ToDo
+2. First argument  - there is not necessary to test the first argument - it is tested in detail at next part of the application (only file exist) -ToDo
+3. Second argument - there is not necessary to test the second argument - it is tested in detail at next part of the application (only file exist and have .sql extension) - ToDo
+4. Third argument CSV or XLSX is only allowed value for that parameters - ToDo
+5. Fourth argument - there is not necessary to test detailly the second argument - it is tested in detail at next part of the application (only file exist and have .xlsx extension) - ToDo
+6. 5 number between 1 and .. -ToDo
+7. 6 number between 1 and .. - ToDo
+
+            /* obligatory arguments for CSV format
+            arg[0]: configuration file example: c:\KKrReporter\KKrReporter-LocalMSSQL.config
+            arg[1]: SQL file example            c:\KKrReporter\Report_01.sql
+            arg[2]: format of report file: CSV or XLSX (for CSV of course should be CSV)
+            */
+
+            /* obligatory arguments for XLSX format
+            arg[2]: format of report file: CSV or XLSX (for XLSX of course should be XLSX)
+            arg[3]: XLSX template used for report, example: c:\KKrReporter\Report_01.xlsx
+            arg[4]: XLSX template sheet name that data should be put: example sheet1
+            arg[5]:1 - column number that data should be put, example: 1
+            arg[6]:2 - row number that data should be put, example: 2
+
+8. Detail validation of Configuration file:
+	a. File not exist - pass
+	b. There is no access to configuration file - pass
+	c. File contains only checking if file contain only ASCII 32−126 or it is UTF-8 (with BOM) file - ToDo
+	d. Connection string is obviously incorrect ex "TestABC123" (if there is at least 3 chars including one "=" program try use that connection string) -pass
+	e. Lack of connection String - pass
+  	f. No access to out directory - pass
+	g. incorrect value for Timeout ex. 1s (1 is correct) - pass
+	h. incorrect value for DropboxDelay ex 5second (5 is correct) - pass
+	i. incorrect value for AddDate ex YesOrNo - pass
+	j. lac access to business or exception log - pass
+	
+	
+4. Detail validation of SQL file
+	a. exist "Select" word inside file - ToDo
+	b. checking if file contain only ASCII 32−126 or it is UTF-8 (with BOM) file - ToDo
+5. Detail validation of XLSX file 
+        a. file has listed sheet
+6. xlsx format overflow monitoring
+	a. excel start column + columns at sql quer <= max xlsx format columns
+	b. excel start row + number of records return by sql query <= max xlsx format rows

@@ -11,21 +11,24 @@ namespace KKrReporter
         System.IO.StreamWriter file;
         public bool isEmpty = true;
         public string logBackup;
-       
+        private string LogFileName;
+
+
         public LogFile(string LogFileName)
         {
             try
             {
                 file = new System.IO.StreamWriter(LogFileName, true);
+                this.LogFileName = LogFileName;
             }
             catch (Exception e)
             {
                 isEmpty = false;
                 //if we are here, it means that will be not able to save anything to the log file. 
                 //We can only print exception at the console. Also, we will save all information at variable log backup
-                logBackup = logBackup + "Problem with open log file" + "\n";
-                logBackup = logBackup + e.GetBaseException().ToString() + "\n";
-                logBackup = logBackup + e.StackTrace + "\n";
+                logBackup = logBackup + "Problem with open (to write) log file: " + LogFileName + Environment.NewLine;
+                logBackup = logBackup + e.GetBaseException().ToString() + Environment.NewLine;
+                logBackup = logBackup + e.StackTrace + Environment.NewLine;
 
                 // we will try save infomration to default file 
                 Random random = new Random(); 
@@ -51,10 +54,10 @@ namespace KKrReporter
                 {
                     string firstline = "Start: " + DateTime.Now;
                     file.WriteLine(firstline);
-                    logBackup = logBackup + "\n" + firstline;
+                    logBackup = logBackup + Environment.NewLine + firstline;
                 }
                 file.WriteLine(line);
-                logBackup = logBackup + "\n" + line;
+                logBackup = logBackup + Environment.NewLine + line;
                 isEmpty = false;
             }
             catch (Exception e)
@@ -62,9 +65,9 @@ namespace KKrReporter
                 isEmpty = false;
                 //if we are here, it means that will be not able to save anything to the log file. 
                 //We can only print exception at the console. Also, we will save all information at variable log backup
-                logBackup = logBackup + "Problem with write to log file" + "\n";
-                logBackup = logBackup + e.GetBaseException().ToString() + "\n";
-                logBackup = logBackup + e.StackTrace + "\n";
+                logBackup = logBackup + "Problem with write to log file: " + LogFileName + Environment.NewLine;
+                logBackup = logBackup + e.GetBaseException().ToString() + Environment.NewLine;
+                logBackup = logBackup + e.StackTrace + Environment.NewLine;
 
                 // we will try save infomration to default file 
                 Random random = new Random();
@@ -89,9 +92,9 @@ namespace KKrReporter
             {
                 if (!isEmpty)
                 {
-                    string line = "End: " + DateTime.Now;
+                    string line = "End: " + DateTime.Now + Environment.NewLine;
                     file.WriteLine(line);
-                    logBackup = logBackup + "\n" + line;
+                    logBackup = logBackup + Environment.NewLine + line ;
                 }
                 file.Close();
             }
@@ -100,9 +103,9 @@ namespace KKrReporter
                 isEmpty = false;
                 //if we are here, it means that will be not able to save anything to the log file. 
                 //We can only print exception at the console. Also, we will save all information at variable log backup
-                logBackup = logBackup + "Problem with close log file" + "\n";
-                logBackup = logBackup + e.GetBaseException().ToString() + "\n";
-                logBackup = logBackup + e.StackTrace + "\n";
+                logBackup = logBackup + "Problem with close log file: " + LogFileName + Environment.NewLine;
+                logBackup = logBackup + e.GetBaseException().ToString() + Environment.NewLine;
+                logBackup = logBackup + e.StackTrace + Environment.NewLine;
                 System.Console.WriteLine(logBackup);
 
                 // we will try save infomration to default file 
@@ -110,7 +113,7 @@ namespace KKrReporter
                 try
                 {
                     file = new System.IO.StreamWriter("KKrReporterException_" + random.Next(1, 1000).ToString() + "-.log", true);
-                    file.WriteLine(DateTime.Now + " " + logBackup);
+                    file.WriteLine(DateTime.Now + " " + logBackup + Environment.NewLine);
                     file.Close();
                 }
                 catch
