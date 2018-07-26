@@ -13,11 +13,14 @@ namespace KKrReporter
 
         static void Main(string[] args)
         {
-            //ToDo - wyglądzić komentarze i kod
+            //ToDo - wyglądzić komentarze i kod, probrać komunikaty z pliku zasobów
+            //https://stackoverflow.com/questions/530539/what-does-0-mean-when-found-in-a-string-in-c
+            //https://www.youtube.com/watch?v=fFC8dxtPfp4
+            //String.format
             if (args.Length ==0)
             {
                 String message="That app have to be run with arguments, more you can reed at ";
-                LogFile businessLog = new LogFile("KKrReporter.log");
+                LogFile businessLog = new LogFile("KKrReporter.log"); //temporary log, only to save that information
                 businessLog.WriteLine(message);
                 Console.WriteLine(message);
                 Console.WriteLine("app will be closed automiatically after 25 seconds");
@@ -29,36 +32,41 @@ namespace KKrReporter
             //the most important is configuration file, 
             //we are starting from checking if file is correct
             ConfigurationFile configurationfile = new ConfigurationFile(args[0]);
-            if (configurationfile.IsCorrect() == false)
+            if (configurationfile.IsCorrect == false)
             {
-                LogFile businessLog = new LogFile("KKrReporter.log");
-                businessLog.WriteLine("Configuration file " + args[0] + " is not valid, " +
-                                      "KKrReporter is not able process request without proper configuration file." + 
-                                      Environment.NewLine +
-                                      "Error description: " + configurationfile.GetErrorDesctiption() +
-                                      "more about arguments you can read at " +
-                                      "https://github.com/kkrysztofczyk/KKrReporter/wiki/Config-File" + 
-                                      Environment.NewLine);
-                businessLog.Close();
+                LogFile bussinesLogTmp = new LogFile("KKrReporter.log"); //temporary log, only to save that information
+                string message = "Configuration file " + args[0] + " is not valid, " +
+                                 "KKrReporter is not able process request without proper configuration file." +
+                                  Environment.NewLine +
+                                 "Error description: " + configurationfile.GetErrorDesctiption() +
+                                 "more about configuration file you can read at " +
+                                 "https://github.com/kkrysztofczyk/KKrReporter/wiki/Config-File" +
+                                  Environment.NewLine;
+                bussinesLogTmp.WriteLine(message);
+                bussinesLogTmp.Close();
+                System.Console.WriteLine(message);
+                System.Threading.Thread.Sleep(25000);
                 return;
             }
 
             //we have at lest correct configuration file, we can start using configuration data
-            LogFile BussinesLogFile = new LogFile(configurationfile.BussinessLogFile);
+            LogFile bussinesLog = new LogFile(configurationfile.BussinessLogFile);
             //LogFile ExceptionLogFile = new LogFile(configurationfile.ExceptionLogFile);
 
             //now we can check rest of arguments (configuration file is already checked and it is valid)
             CheckArguments checkarguments = new CheckArguments(args);
-            if (checkarguments.isCorrect == false)
+            if (checkarguments.IsCorrect() == false)
             {
-                businessLog.WriteLine("Configuration file " + args[0] + " is not valid, " +
-                                      "KKrReporter is not able process request without proper configuration file." +
-                                      Environment.NewLine +
-                                      "Error description: " + configurationfile.GetErrorDesctiption() +
-                                      "more about arguments you can read at " +
-                                      "https://github.com/kkrysztofczyk/KKrReporter/wiki/Config-File" +
-                                      Environment.NewLine);
-                businessLog.Close();
+                string message = "Configuration file " + args[0] + " is not valid, " +
+                                 "KKrReporter is not able process request without correct arguments." +
+                                  Environment.NewLine +
+                                 "Error description: " + checkarguments.GetErrorDesctiption() +
+                                 "more about arguments you can read at " +
+                                 "https://github.com/kkrysztofczyk/KKrReporter/wiki/Config-File" +
+                                  Environment.NewLine;
+                bussinesLog.WriteLine(message);
+                bussinesLog.Close();
+                System.Threading.Thread.Sleep(25000);
                 return;
             }
 
@@ -124,7 +132,7 @@ namespace KKrReporter
             Console.WriteLine(DateTime.Now + "; " + args[0] + "; " + args[1]);
             */
             // 
-            Console.ReadLine();
+            System.Threading.Thread.Sleep(10000);
         }
     }
 }

@@ -267,8 +267,7 @@ namespace KKrReporter
 
             return true; //We have all values that should be at config file (not validated yet)
         }
-
-
+        
         public ConfigurationFile(string configFile)
         {
             this.configFileName = configFile;

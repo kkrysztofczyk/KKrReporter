@@ -30,7 +30,7 @@ namespace KKrReporter
             arg[6]:2 - row number that data should be put, example: 2
             */
 
-            /*optional arguments for XLSX format
+            /*optional arguments for XLSX format (not supported for that moment)
             arg[7]: master row that contain example of formated values (0 means no master row), example: 0 or 2
             */
 
@@ -56,21 +56,21 @@ namespace KKrReporter
                     "Issue Code: E010, program is not procesiing futher operation " + "\n";
                 return false;
             }
-            if (args.Length > 8)
+            if (args.Length > 7)
             {
-                errorDescription = "maximum namber of paramters is 8, you put: " + args.Length.ToString() +
+                errorDescription = "maximum namber of paramters is 7, you put: " + args.Length.ToString() +
                     " more about arguments you can read at " +
                     "https://github.com/kkrysztofczyk/KKrReporter/wiki/Application-Arguments " +
                     "Issue Code: E011, program is not procesiing futher operation " + "\n";
                 return false;
             }
-            if (args[2].ToUpper() == "XLSX" && (args.Length != 7 && args.Length != 8))
+            if (args[2].ToUpper() == "XLSX" && args.Length != 7)
             {
-                errorDescription = "there are 6 obligatory arguments in case of XLSX format and 1 optional" +
+                errorDescription = "there are 7 obligatory arguments in case of XLSX format" +
                     ", you put: " + args.Length.ToString() +
                     " more about arguments you can read at " +
                     "https://github.com/kkrysztofczyk/KKrReporter/wiki/Application-Arguments " +
-                    "Issue Code: E013, program is not procesiing futher operation " + "\n";
+                    "Issue Code: E013, program is not procesing futher operation " + "\n";
                 return false;
             }
             //we was not able to find mistake
@@ -81,19 +81,39 @@ namespace KKrReporter
         {
 
             //at first we are checking if file is existing and extention is .sql
+            if (args[1].Substring(args[1].Length - 4).ToLower().Equals(".sql"))
+            {
+                var kkr = 'a';
+            }
+
+                    
 
             //we can read that file
 
-            //kodowanie UTF-8 lub ASCII 32−126
+                //kodowanie UTF-8 lub ASCII 32−126
 
-            //Rozmiar poniżej (na razie przyjmijmy 10 MB)
+                //Rozmiar poniżej (na razie przyjmijmy 10 MB)
 
-            //Rozmiar powyżej zera
+                //Rozmiar powyżej zera
 
-            //skłądnia wyrażeniem regularnym
+                //skłądnia wyrażeniem regularnym
 
             return true;
 
+        }
+
+        private bool IsXLSXFileAndParametersCorrect()
+        {
+            //at first we are checking if file is existing and extention is .xlsx
+
+            //we can read that file
+
+            //sheet that we would like export data exist
+
+            //row number that we would like place data is not biger than 1 048 576 
+
+            //column number that we would like place data is not biger than 16 384 
+            return true;
         }
 
         public bool IsCorrect()
@@ -106,23 +126,32 @@ namespace KKrReporter
             //we know that first argument (configuration file) is already checked so we can start form second one
             if (this.IsSQLFilleCorrect() == false)
             {
-                return false;
                 //toDo ErrorDescription
+                errorDescription += "incorrect SQL file";
+                return false;
             }
 
             //we checking if format is choosen correctly (currenty app support CVS and XLSX)
             //if format is CSV we can return true (next validation are only for XLSX)
             if (args[2].ToUpper()!="CSV" && args[2].ToUpper() != "XLSX" )
             {
-                return false;
                 //toDo ErrorDescription
+                errorDescription += "incorrect output format (allowed values CSV or XLSX)";
+                return false;
             }
             else
             {
                 if (args[2].ToUpper() != "CSV")
                 return true;
                 //we have all needed arguments
-            }                    
+            }
+
+            if (this.IsXLSXFileAndParametersCorrect() == false)
+            {
+                //toDo ErrorDescription
+                errorDescription += "incorrect XLSX file";
+                return false;
+            }
 
             //we was not able to find any error at aplication arguments
             return true;
