@@ -1,10 +1,8 @@
-﻿using System.Data;
-using System.Data.SqlClient;
+﻿using System.Data.SqlClient;
 using System;
 using System.IO;
-using System.Text;
-
-
+using System.Resources;
+using System.Reflection;
 
 namespace KKrReporter
 {
@@ -16,14 +14,17 @@ namespace KKrReporter
             //ToDo - wyglądzić komentarze i kod, probrać komunikaty z pliku zasobów
             //https://stackoverflow.com/questions/530539/what-does-0-mean-when-found-in-a-string-in-c
             //https://www.youtube.com/watch?v=fFC8dxtPfp4
-            //String.format
+            //https://stackoverflow.com/questions/1508570/read-string-from-resx-file-in-c-sharp
+            //String.format       
+            //Console.WriteLine (rm.GetString("E001_NoArguments"));
+                     
             if (args.Length ==0)
             {
-                String message="That app have to be run with arguments, more you can reed at ";
+                String mainMessage= Messages.ResourceManager.GetString("E001_NoArguments");
                 LogFile businessLog = new LogFile("KKrReporter.log"); //temporary log, only to save that information
-                businessLog.WriteLine(message);
-                Console.WriteLine(message);
-                Console.WriteLine("app will be closed automiatically after 25 seconds");
+                businessLog.WriteLine(mainMessage);
+                Console.WriteLine(mainMessage);
+                Console.WriteLine(Messages.ResourceManager.GetString("INF01_AppClose"));
                 System.Threading.Thread.Sleep(25000);
                 businessLog.Close();
                 return;

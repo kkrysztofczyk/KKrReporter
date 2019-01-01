@@ -118,7 +118,9 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="E001_NoArguments" xml:space="preserve">
-    <value>That application have to be run with arguments. More you can read at page https://github.com/kkrysztofczyk/KKrReporter/wiki</value>
+    <value>Error (E001). That application have to be run with arguments. 
+More you can read at page:
+https://github.com/kkrysztofczyk/KKrReporter/wiki</value>
     <comment>information that is displayed when program is runed without arguments</comment>
   </data>
   <data name="INF01_AppClose" xml:space="preserve">
