@@ -117,14 +117,45 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="E001_NoArguments" xml:space="preserve">
-    <value>Error (E001). That application have to be run with arguments. 
-More you can read at page:
-https://github.com/kkrysztofczyk/KKrReporter/wiki</value>
+  <data name="E001_NoAccessToLogFile" xml:space="preserve">
+    <value>Error (E001). Problem with open/create (to write) log file: 
+   {0}</value>
+    <comment>Information that aplication is not able to save data at log file</comment>
+  </data>
+  <data name="E002_NoArguments" xml:space="preserve">
+    <value>Error (E002). That application have to be run with arguments. 
+   More you can read at page:
+   https://github.com/kkrysztofczyk/KKrReporter/wiki</value>
     <comment>information that is displayed when program is runed without arguments</comment>
+  </data>
+  <data name="E003_NoAccessWriteLogFile" xml:space="preserve">
+    <value>Error (E003). Problem with adding informations to log file: 
+   {0}</value>
+  </data>
+  <data name="E004_NoAccessCloseLogFile" xml:space="preserve">
+    <value>Error (E004). Problem with adding informations and closing log file:
+   {0}</value>
+  </data>
+  <data name="E005_IncorrectConfFile" xml:space="preserve">
+    <value>Configuration file {0} is not valid, 
+KKrReporter is not able process request without proper configuration file.
+Error description: 
+{1}
+more about configuration file you can read at:
+https://github.com/kkrysztofczyk/KKrReporter/wiki/Config-File</value>
   </data>
   <data name="INF01_AppClose" xml:space="preserve">
     <value>Aplication will be closed automiatically after 25 seconds</value>
     <comment>information that inform (after dispaing error) that aplication will be closed in next 25s</comment>
+  </data>
+  <data name="INF02_AppStartLog" xml:space="preserve">
+    <value>KKrReporter Start: {0}</value>
+  </data>
+  <data name="INF02_TempLogFileInfo" xml:space="preserve">
+    <value>Because of no access to default log file (E001), application will try to save information to temporary log file:
+   {0}</value>
+  </data>
+  <data name="INF03_AppCloseLog" xml:space="preserve">
+    <value>KKrReporter End: {0}</value>
   </data>
 </root>

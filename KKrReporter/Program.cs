@@ -15,18 +15,20 @@ namespace KKrReporter
             //https://stackoverflow.com/questions/530539/what-does-0-mean-when-found-in-a-string-in-c
             //https://www.youtube.com/watch?v=fFC8dxtPfp4
             //https://stackoverflow.com/questions/1508570/read-string-from-resx-file-in-c-sharp
-            //String.format       
-            //Console.WriteLine (rm.GetString("E001_NoArguments"));
-                     
+            //https://docs.microsoft.com/pl-pl/dotnet/csharp/programming-guide/classes-and-structs/named-and-optional-arguments - format dla wywoływania programu
+            //https://github.com/JanKallman/EPPlus/wiki
+    
+
             if (args.Length ==0)
             {
-                String mainMessage= Messages.ResourceManager.GetString("E001_NoArguments");
-                LogFile businessLog = new LogFile("KKrReporter.log"); //temporary log, only to save that information
-                businessLog.WriteLine(mainMessage);
+                String mainMessage= Messages.ResourceManager.GetString("E002_NoArguments");
+                LogFile businessLog = new LogFile("KKrReporter.log"); 
+                businessLog.wasError = true;
                 Console.WriteLine(mainMessage);
-                Console.WriteLine(Messages.ResourceManager.GetString("INF01_AppClose"));
-                System.Threading.Thread.Sleep(25000);
+                businessLog.WriteLine(mainMessage, true);         
+                Console.WriteLine(Environment.NewLine + Messages.ResourceManager.GetString("INF01_AppClose"));
                 businessLog.Close();
+                System.Threading.Thread.Sleep(25000);             
                 return;
             }
 
@@ -35,7 +37,7 @@ namespace KKrReporter
             ConfigurationFile configurationfile = new ConfigurationFile(args[0]);
             if (configurationfile.IsCorrect == false)
             {
-                LogFile bussinesLogTmp = new LogFile("KKrReporter.log"); //temporary log, only to save that information
+                LogFile bussinesLogTmp = new LogFile("KKrReporter.log"); 
                 string message = "Configuration file " + args[0] + " is not valid, " +
                                  "KKrReporter is not able process request without proper configuration file." +
                                   Environment.NewLine +
@@ -43,16 +45,19 @@ namespace KKrReporter
                                  "more about configuration file you can read at " +
                                  "https://github.com/kkrysztofczyk/KKrReporter/wiki/Config-File" +
                                   Environment.NewLine;
-                bussinesLogTmp.WriteLine(message);
-                bussinesLogTmp.Close();
+
+
+
+                bussinesLogTmp.WriteLine(message);          
                 System.Console.WriteLine(message);
+                bussinesLogTmp.Close();
                 System.Threading.Thread.Sleep(25000);
                 return;
             }
 
             //we have at lest correct configuration file, we can start using configuration data
-            LogFile bussinesLog = new LogFile(configurationfile.BussinessLogFile);
-            //LogFile ExceptionLogFile = new LogFile(configurationfile.ExceptionLogFile);
+            LogFile bussinesLog = new LogFile("KKrReporter.log");
+
 
             //now we can check rest of arguments (configuration file is already checked and it is valid)
             CheckArguments checkarguments = new CheckArguments(args);

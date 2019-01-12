@@ -61,13 +61,57 @@ namespace KKrReporter {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Error (E001). That application have to be run with arguments. 
-        ///More you can read at page:
-        ///https://github.com/kkrysztofczyk/KKrReporter/wiki.
+        ///   Looks up a localized string similar to Error (E001). Problem with open/create (to write) log file: 
+        ///   {0}.
         /// </summary>
-        internal static string E001_NoArguments {
+        internal static string E001_NoAccessToLogFile {
             get {
-                return ResourceManager.GetString("E001_NoArguments", resourceCulture);
+                return ResourceManager.GetString("E001_NoAccessToLogFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error (E002). That application have to be run with arguments. 
+        ///   More you can read at page:
+        ///   https://github.com/kkrysztofczyk/KKrReporter/wiki.
+        /// </summary>
+        internal static string E002_NoArguments {
+            get {
+                return ResourceManager.GetString("E002_NoArguments", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error (E003). Problem with adding informations to log file: 
+        ///   {0}.
+        /// </summary>
+        internal static string E003_NoAccessWriteLogFile {
+            get {
+                return ResourceManager.GetString("E003_NoAccessWriteLogFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error (E004). Problem with adding informations and closing log file:
+        ///   {0}.
+        /// </summary>
+        internal static string E004_NoAccessCloseLogFile {
+            get {
+                return ResourceManager.GetString("E004_NoAccessCloseLogFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Configuration file {0} is not valid, 
+        ///KKrReporter is not able process request without proper configuration file.
+        ///Error description: 
+        ///{1}
+        ///more about configuration file you can read at:
+        ///https://github.com/kkrysztofczyk/KKrReporter/wiki/Config-File.
+        /// </summary>
+        internal static string E005_IncorrectConfFile {
+            get {
+                return ResourceManager.GetString("E005_IncorrectConfFile", resourceCulture);
             }
         }
         
@@ -77,6 +121,34 @@ namespace KKrReporter {
         internal static string INF01_AppClose {
             get {
                 return ResourceManager.GetString("INF01_AppClose", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to KKrReporter Start: {0}.
+        /// </summary>
+        internal static string INF02_AppStartLog {
+            get {
+                return ResourceManager.GetString("INF02_AppStartLog", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Because of no access to default log file (E001), application will try to save information to temporary log file:
+        ///   {0}.
+        /// </summary>
+        internal static string INF02_TempLogFileInfo {
+            get {
+                return ResourceManager.GetString("INF02_TempLogFileInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to KKrReporter End: {0}.
+        /// </summary>
+        internal static string INF03_AppCloseLog {
+            get {
+                return ResourceManager.GetString("INF03_AppCloseLog", resourceCulture);
             }
         }
     }

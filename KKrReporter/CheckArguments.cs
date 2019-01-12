@@ -24,14 +24,15 @@ namespace KKrReporter
 
             /* obligatory arguments for XLSX format
             arg[2]: format of report file: CSV or XLSX (for XLSX of course should be XLSX)
-            arg[3]: XLSX template used for report, example: c:\KKrReporter\Report_01.xlsx
+            arg[3]: XLSX template used for report, example: c:\KKrReporter\Report_01.xlsx (predefinied templates ex. Table01.xlsx)
             arg[4]: XLSX template sheet name that data should be put: example sheet1
             arg[5]:1 - column number that data should be put, example: 1
             arg[6]:2 - row number that data should be put, example: 2
             */
 
             /*optional arguments for XLSX format (not supported for that moment)
-            arg[7]: master row that contain example of formated values (0 means no master row), example: 0 or 2
+            arg[7]: email that report should be sended
+            arg[8]: master row that contain example of formated values (0 means no master row), example: 0 or 2
             */
 
 

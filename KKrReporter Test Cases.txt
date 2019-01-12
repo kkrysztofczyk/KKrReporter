@@ -1,4 +1,8 @@
-﻿1. Run program without parameters E001 - ToDo
+﻿Requiments to test enviroment:
+
+
+Test scenarios:
+1. Run program without parameters E001 - ToDo
 2. First argument  - there is not necessary to test the first argument - it is tested in detail at next part of the application (only file exist) -ToDo
 3. Second argument - there is not necessary to test the second argument - it is tested in detail at next part of the application (only file exist and have .sql extension) - ToDo
 4. Third argument CSV or XLSX is only allowed value for that parameters - ToDo
